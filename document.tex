@@ -1,0 +1,174 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[none]{hyphenat}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{anyfontsize}
+\usepackage{multicol}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{multirow}
+%\usepackage{graphicx}
+%\usepackage{tabularx}
+%\usepackage{titlesec}
+
+%\titleformat{\section}[block]{\Large\bfseries\filcenter}{}{1em}{}
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\pgfplotsset{compat=1.7}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{2ex}
+\renewcommand{\baselinestretch}{1.3}
+
+\newcommand\linefillcentre {\begin{center}\rule{0.3\textwidth}{0.1mm}\end{center}}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{tikzpicture}[overlay,remember picture]
+
+% Background color
+\fill[
+black!2]
+(current page.south west) rectangle (current page.north east);
+
+% Rectangles
+\shade[
+left color=Dandelion, 
+right color=Dandelion!40,
+transform canvas ={rotate around ={45:($(current page.north west)+(0,-6)$)}}] 
+($(current page.north west)+(0,-6)$) rectangle ++(9,1.5);
+
+\shade[
+left color=lightgray,
+right color=lightgray!50,
+rounded corners=0.75cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(.5,-10)$)}}]
+($(current page.north west)+(0.5,-10)$) rectangle ++(15,1.5);
+
+\shade[
+left color=lightgray,
+rounded corners=0.3cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(.5,-10)$)}}] ($(current page.north west)+(1.5,-9.55)$) rectangle ++(7,.6);
+
+\shade[
+left color=orange!80,
+right color=orange!60,
+rounded corners=0.4cm,
+transform canvas ={rotate around ={45:($(current page.north)+(-1.5,-3)$)}}]
+($(current page.north)+(-1.5,-3)$) rectangle ++(9,0.8);
+
+\shade[
+left color=red!80,
+right color=red!80,
+rounded corners=0.9cm,
+transform canvas ={rotate around ={45:($(current page.north)+(-3,-8)$)}}] ($(current page.north)+(-3,-8)$) rectangle ++(15,1.8);
+
+\shade[
+left color=orange,
+right color=Dandelion,
+rounded corners=0.9cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(4,-15.5)$)}}]
+($(current page.north west)+(4,-15.5)$) rectangle ++(30,1.8);
+
+\shade[
+left color=RoyalBlue,
+right color=Emerald,
+rounded corners=0.75cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(13,-10)$)}}]
+($(current page.north west)+(13,-10)$) rectangle ++(15,1.5);
+
+\shade[
+left color=lightgray,
+rounded corners=0.3cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(18,-8)$)}}]
+($(current page.north west)+(18,-8)$) rectangle ++(15,0.6);
+
+\shade[
+left color=lightgray,
+rounded corners=0.4cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(19,-5.65)$)}}]
+($(current page.north west)+(19,-5.65)$) rectangle ++(15,0.8);
+
+\shade[
+left color=OrangeRed,
+right color=red!80,
+rounded corners=0.6cm,
+transform canvas ={rotate around ={45:($(current page.north west)+(20,-9)$)}}] 
+($(current page.north west)+(20,-9)$) rectangle ++(14,1.2);
+
+% Add NSU Logo
+\node[align=center] at  ($(current page.center)+(0,0)$)
+{
+\includegraphics{nsu-logo.png}
+};
+
+\node[align=center] at ($(current page.center)+(0,-7)$) 
+{
+% Doc-Info
+{\fontsize{40}{48} \selectfont {{-------- Final Assignment --------}}} \\[0.4cm]
+{\fontsize{20}{24} \selectfont \textcolor{blue}{ \bf Theory of Computation (CSE273)}}\\[0.25cm]
+{\fontsize{20}{24} \selectfont \textcolor{blue}{ \bf Sec: 2, Spring 2021}}\\[0.25cm]
+{\fontsize{20}{24} \selectfont \textcolor{orange}{ Faculty Instructor: Md. Mosaddek Khan (MMK1)}}\\[0.25cm]
+{ \dotfill }~\\[0.25cm]
+};
+
+\node[align=center] at ($(current page.center)+(0,-11)$) 
+{
+{\fontsize{20}{24} \selectfont {\bf Asaduzzaman Noor}} \\[0.25cm]
+{\fontsize{20}{24} \selectfont {163 1231 042}} \\
+};
+\end{tikzpicture}
+\end{titlepage}
+
+% ================================ Actual Content ================================
+%\pagenumbering{gobble}
+{\color{PineGreen} \textbf{\textit{Q1:}} Construct a DFA with 6 states, two of which are final states. Take a string of length 7. Now, use
+extended transition function to test whether the string is accepted by your constructed DFA.}
+
+\textbf{\textit{Ans.}} Consider the DFA = (Q, $\Sigma$, $\delta$, A, F), where\\
+\[ Q = \{A, B, C, D, E, F\} \]
+\[ \Sigma = \{0, 1\} \]
+Transition table for a DFA that has 6 states, 2 of which are final states, is given below:
+\begin{table}[h!]
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+	   %       & \multicolumn{2}{c|}{Input} \\ \hline
+	    States & Input: 0 & Input: 1 \\ \hline
+   $\rightarrow$A & B & C \\ \hline
+		 B & C & D \\ \hline
+		 C & E & F \\ \hline
+		*D & B & E \\ \hline
+		 E & F & C \\ \hline
+		*F & F & D \\ \hline
+        \end{tabular}
+	\caption{DFA - Transition Table}
+    \end{center}
+\end{table}
+
+Let's take a string, $w = 0100101$
+
+
+
+{\color{PineGreen} \textbf{\textit{Q2:}} Construct a $\varepsilon$-NFA using 10 states, three of which are final states and at least two are ε -transitions.
+Now, use subset construction algorithm to convert this $\varepsilon$-NFA to its equivalent DFA.}
+
+Hello
+
+{\color{PineGreen} \textbf{\textit{Q3:}} Consider the final DFA that you have created as an answer to Question 2. Use that DFA, and
+now, use table filling algorithm to minimize it.} 
+
+Hello
+
+{\color{PineGreen} \textbf{\textit{Q4:}} Construct a Mealy machine with 6 states with input alphabet {0, 1, 2} and output alphabet
+{a,b,c}. Now, transform this Mealy machine to its equivalent Moore machine.}
+
+Hello
+
+\end{document}
